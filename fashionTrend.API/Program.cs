@@ -1,6 +1,6 @@
 using fashionTrend.API.Extensions;
 using fashionTrend.Application.Services;
-using fashionTrend.API.BD;
+
 
 
 namespace fashionTrend.API

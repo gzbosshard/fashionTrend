@@ -12,8 +12,8 @@ namespace fashionTrend.Application.UseCases.CreateUser
     {
         public CreateUserMapper()
         {
-            CreateMap<CreateUserMapper, User>();
-            CreateMap<User, CreateUserMapper>();
+            CreateMap<CreateUserRequest, User>();
+            CreateMap<User, CreateUserResponse>();
         }
     }
 }
