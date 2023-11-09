@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ public class AppDbContext : DbContext
 
 
     public DbSet<User> Users { get; set; }
-    public DbSet<Fornecedor> Fornecedores { get; set; }
+    public DbSet<Supplier> Suppliers { get; set; }
+    public DbSet<Service> Services { get; set; }
+    public DbSet<ServiceContract> ServiceContracts { get; set; }
 
 }

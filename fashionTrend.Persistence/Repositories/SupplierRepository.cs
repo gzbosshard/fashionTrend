@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace fashionTrend.Persistence.Repositories
 {
-    public class FornecedorRepository : BaseRepository<Fornecedor>, IFornecedorRepository
+    public class SupplierRepository : BaseRepository<Supplier>, ISupplierRepository
     {
-        public FornecedorRepository(AppDbContext context) : base(context)
+        public SupplierRepository(AppDbContext context) : base(context)
         {
 
         }
 
 
-        public async Task<Fornecedor> GetByEmail(string email, CancellationToken cancellationToken)
+        public async Task<Supplier> GetByEmail(string email, CancellationToken cancellationToken)
         {
 
-            return await Context.Fornecedores.FirstOrDefaultAsync(
+            return await Context.Suppliers.FirstOrDefaultAsync(
                 x => x.Email.Equals(email), cancellationToken);
         }
     }

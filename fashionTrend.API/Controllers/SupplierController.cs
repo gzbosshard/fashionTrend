@@ -9,22 +9,22 @@ namespace fashionTrend.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FornecedorController : ControllerBase
+    public class SupplierController : ControllerBase
     {
         IMediator _mediator;
         
 
-        public FornecedorController(IMediator mediator)
+        public SupplierController(IMediator mediator)
         {
             _mediator = mediator;
             
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateFornecedorRequest request)
+        public async Task<IActionResult> Create(CreateSupplierRequest request)
         {
-            var fornecedor = await _mediator.Send(request);
-            return Ok(fornecedor);
+            var supplier = await _mediator.Send(request);
+            return Ok(supplier);
         }
         
 

@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace fashionTrend.Application.UseCases.CreateFornecedor
 {
-    public class CreateFornecedorMapper : Profile
+    public class CreateSupplierMapper : Profile
     {
-        public CreateFornecedorMapper()
+        public CreateSupplierMapper()
         {
-            CreateMap<CreateFornecedorRequest, Fornecedor>();
-            CreateMap<Fornecedor, CreateFornecedorResponse>();
+            CreateMap<CreateSupplierRequest, Supplier>();
+            CreateMap<Supplier, CreateSupplierResponse>();
         }
     }
 }

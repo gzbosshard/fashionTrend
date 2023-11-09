@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace fashionTrend.Domain.Interfaces
 {
-    public interface IFornecedorRepository : IBaseRepository<Fornecedor>
+    public interface ISupplierRepository : IBaseRepository<Supplier>
     {
-        Task<Fornecedor> GetByEmail(string email, CancellationToken cancellationToken);
+        Task<Supplier> GetByEmail(string email, CancellationToken cancellationToken);
     }
 }

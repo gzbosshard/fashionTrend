@@ -1,4 +1,5 @@
 ﻿using fashionTrend.Application.UseCases.CreateUser;
+using fashionTrend.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace fashionTrend.Application.UseCases.CreateFornecedor
 {
-    public sealed record CreateFornecedorRequest(
+    public sealed record CreateSupplierRequest(
         string Email,
         string Name,
-        string CNPJ,
-        string TipoMaquina,
-        string Material
-        ) : IRequest<CreateFornecedorResponse>
+        string Password,
+        List<SewingMachine> SewingMachines,
+        List<Material> Materials
+        ) : IRequest<CreateSupplierResponse>
     {
 
     }
