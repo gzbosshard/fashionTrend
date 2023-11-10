@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace fashionTrend.Domain.Entities
 {
-    public enum Material
+    
+    public enum SewingMachine
     {
-        jeans = 1,
-        seda = 2,
-        leather = 3,
-        lycra = 4
+        overloque,
+        galoneira,
+        pontoCadeia,
+        travete,
+        reta,
+        cadeadeira,
+        botoneira
     }
 }

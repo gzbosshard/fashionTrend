@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace fashionTrend.Domain.Entities
+namespace fashionTrend.Domain.Enuns
 {
     public enum RequestType
     {
         Repair,
-        Alteration
+        Manufacturing
 
     }
 }

@@ -13,7 +13,7 @@ namespace fashionTrend.Application.UseCases.CreateService
     {
         public CreateServiceMapper()
         {
-            CreateMap<CreateServiceRequest, Service>();
+            CreateMap<CreateServiceRequest, Service>();              
             CreateMap<Service, CreateServiceResponse>();
         }
     }

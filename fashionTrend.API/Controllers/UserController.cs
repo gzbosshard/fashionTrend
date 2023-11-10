@@ -15,6 +15,9 @@ namespace fashionTrend.API.Controllers
             _mediator = mediator;
         }
 
+
+ 
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserRequest request){
             var user = await _mediator.Send(request);
