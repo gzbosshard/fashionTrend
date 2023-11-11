@@ -11,9 +11,9 @@ namespace fashionTrend.Domain.Enuns
     
     public enum Material
     {
-        jeans,
-        seda,
-        leather,
-        lycra
+        jeans = 1,
+        seda = 2,
+        leather = 3,
+        lycra = 4
     }
 }

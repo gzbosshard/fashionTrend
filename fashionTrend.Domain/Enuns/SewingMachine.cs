@@ -9,12 +9,12 @@ namespace fashionTrend.Domain.Entities
     
     public enum SewingMachine
     {
-        overloque,
-        galoneira,
-        pontoCadeia,
-        travete,
-        reta,
-        cadeadeira,
-        botoneira
+        overloque = 1,
+        galoneira = 2,
+        pontoCadeia = 3,
+        travete = 4,
+        reta = 5,
+        cadeadeira = 6,
+        botoneira = 7
     }
 }

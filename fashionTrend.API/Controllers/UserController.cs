@@ -1,4 +1,4 @@
-﻿using fashionTrend.Application.UseCases.CreateUser;
+﻿using fashionTrend.Application.UseCases.UserUseCases.CreateUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace fashionTrend.Domain.Enuns
+namespace fashionTrend.Application.UseCases.SupplierUseCases.GetAllSupplier
 {
-    public enum RequestType
+    public class GetAllSupplierValidator
     {
-        Repair = 1,
-        Manufacturing = 2
-
     }
 }

@@ -1,5 +1,4 @@
-﻿using fashionTrend.Application.UseCases.CreateFornecedor;
-using fashionTrend.Application.UseCases.CreateServiceOrder;
+﻿using fashionTrend.Application.UseCases.ServiceOrderUseCases.CreateServiceOrder;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
