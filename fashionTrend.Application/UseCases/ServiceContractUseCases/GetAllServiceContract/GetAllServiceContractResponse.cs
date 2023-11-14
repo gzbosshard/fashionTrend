@@ -15,5 +15,6 @@ namespace fashionTrend.Application.UseCases.ServiceContractUseCases.GetAllServic
         public Guid SupplierId { get; set; }
         public DateTimeOffset StartDate { get; set; }
         public DateTimeOffset EndDate { get; set; }
+        public ContractStatus ContractStatus { get; set; }
     }
 }

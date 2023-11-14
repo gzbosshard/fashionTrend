@@ -1,4 +1,5 @@
 ﻿using fashionTrend.Domain.Entities;
+using fashionTrend.Domain.Enuns;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace fashionTrend.Application.UseCases.ServiceContractUseCases.CreateServic
     public sealed record CreateServiceContractRequest(
         Guid OrderId,
         Guid ServiceId,
+        ContractStatus ContractStatus,
         DateTimeOffset StartDate,
         DateTimeOffset EndDate
         ) : IRequest<CreateServiceContractResponse>

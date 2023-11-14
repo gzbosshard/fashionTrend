@@ -37,6 +37,7 @@ namespace fashionTrend.Application.UseCases.ServiceContractUseCases.UpdateServic
             serviceContract.SupplierId = request.SupplierId;
             serviceContract.StartDate = request.StartDate;
             serviceContract.EndDate = request.EndDate;
+            serviceContract.ContractStatus = request.ContractStatus;
 
 
             _serviceContractRepository.Update(serviceContract);

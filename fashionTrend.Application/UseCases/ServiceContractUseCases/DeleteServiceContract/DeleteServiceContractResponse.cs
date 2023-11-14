@@ -1,4 +1,5 @@
-﻿using System;
+﻿using fashionTrend.Domain.Enuns;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,6 @@ namespace fashionTrend.Application.UseCases.ServiceContractUseCases.DeleteServic
         public Guid SupplierId { get; set; }
         public DateTimeOffset StartDate { get; set; }
         public DateTimeOffset EndDate { get; set; }
+        public ContractStatus ContractStatus { get; set; }
     }
 }

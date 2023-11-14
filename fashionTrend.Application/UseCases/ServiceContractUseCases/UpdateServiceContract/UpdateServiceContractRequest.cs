@@ -14,6 +14,7 @@ namespace fashionTrend.Application.UseCases.ServiceContractUseCases.UpdateServic
         Guid Id,
         Guid Order,
         Guid SupplierId,
+        ContractStatus ContractStatus,
         DateTimeOffset StartDate,
         DateTimeOffset EndDate
         ) : IRequest<UpdateServiceContractResponse>
