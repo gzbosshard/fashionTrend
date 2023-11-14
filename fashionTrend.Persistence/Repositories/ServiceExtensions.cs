@@ -16,11 +16,11 @@ public static class ServiceExtensions
             opt => opt.UseSqlite(connectionString));
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ISupplierRepository, SupplierRepository>();
         services.AddScoped<IServiceContractRepository, ServiceContractRepository>();
         services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddScoped<IServiceOrderRepository, ServiceOrderRepository>();
+        services.AddScoped<IKafkaProducer, KafkaProducer>();
 
     }
 }
