@@ -23,7 +23,7 @@ namespace fashionTrend.Application.UseCases.MessageUseCases.CreateMessage
         public async Task<CreateMessageResponse> Handle(CreateMessageRequest request,
             CancellationToken cancellationToken)
         {
-            var message = _kafkaRepository.ProduceAsync(
+            var message = await _kafkaRepository.ProduceAsync(
                 request.topic,
                 request.sender,
                 request.receiver,
