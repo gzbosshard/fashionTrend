@@ -41,8 +41,7 @@ namespace fashionTrend.Application.UseCases.ServiceUseCases.CreateService
 
             // notificações ao supplier
 
-            var notificaton = new CreateNotificationHandler("AC6b332236219dad9691336c088459f6b8",
-            "39fb92ee662242219407d98bf8ea6079", "+12678340286");
+            var notificaton = new CreateNotificationHandler(", "+12678340286");
 
             
             //aqui percisa ser um for para passar por todos os fornecedores que atendem às condições necessárias
