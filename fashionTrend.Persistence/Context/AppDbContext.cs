@@ -59,5 +59,6 @@ public class AppDbContext : DbContext
     public DbSet<Service> Services { get; set; }
     public DbSet<ServiceContract> ServiceContracts { get; set; }
     public DbSet<ServiceOrder> ServiceOrders { get; set; }
+   
 
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using fashionTrend.Application.UseCases.Notifications;
 using fashionTrend.Domain.Entities;
 using fashionTrend.Domain.Interfaces;
 using MediatR;
@@ -35,10 +36,15 @@ namespace fashionTrend.Application.UseCases.SupplierUseCases.CreateSupplier
 
             _supplierRepository.Create(supplier);
 
+            
+
             // aqui chama o controle transacional
             await _unitOfWork.Commit(cancellationToken);
+
+
             return _mapper.Map<CreateSupplierResponse>(supplier);
 
+            
 
         }
     }

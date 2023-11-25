@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-
+using fashionTrend.Application.UseCases.Notifications;
 using fashionTrend.Domain.Entities;
 using fashionTrend.Domain.Interfaces;
 using MediatR;
@@ -37,6 +37,19 @@ namespace fashionTrend.Application.UseCases.ServiceUseCases.CreateService
 
             // aqui chama o controle transacional
             await _unitOfWork.Commit(cancellationToken);
+
+
+            // notificações ao supplier
+
+            var notificaton = new CreateNotificationHandler("AC6b332236219dad9691336c088459f6b8",
+            "39fb92ee662242219407d98bf8ea6079", "+12678340286");
+
+            
+            //aqui percisa ser um for para passar por todos os fornecedores que atendem às condições necessárias
+            notificaton.SendSMS("+5519982220048", "Uma nova solicação de serviço foi adicionada! Veja se te interessa!");
+
+
+
             return _mapper.Map<CreateServiceResponse>(service);
 
 
