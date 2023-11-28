@@ -3,6 +3,7 @@ using fashionTrend.Application.UseCases.Notifications;
 using fashionTrend.Domain.Entities;
 using fashionTrend.Domain.Interfaces;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,12 @@ namespace fashionTrend.Application.UseCases.ServiceUseCases.CreateService
 
             // notificações ao supplier
 
-            var notificaton = new CreateNotificationHandler(", "+12678340286");
+            var builder = new ConfigurationBuilder()
+            .AddUserSecrets<CreateNotificationHandler>(); 
+
+            var configuration = builder.Build();
+
+            var notificaton = new CreateNotificationHandler(configuration);
 
             
             //aqui percisa ser um for para passar por todos os fornecedores que atendem às condições necessárias

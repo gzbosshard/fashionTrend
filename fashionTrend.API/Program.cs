@@ -25,6 +25,8 @@ namespace fashionTrend.API
 
             var app = builder.Build();
 
+         
+
             // Esse método precisamos criar na mão para subir nosso BD a nossa aplicação
             BD.BD.CreateDatabase(app);
 

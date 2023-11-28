@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,33 +11,33 @@ namespace fashionTrend.Application.UseCases.Notifications
 {
     public class CreateNotificationHandler
     {
-        private string AccountsID;
-        private string AuthToken;
-        private string TwilioPhoneNumber;
+        private readonly IConfiguration _configuration;
 
-        public CreateNotificationHandler(string _accountId, string _authToken, string _twilioPhoneNumber)
+        public CreateNotificationHandler(IConfiguration configuration)
         {
-            AccountsID = _accountId;
-            AuthToken = _authToken;
-            TwilioPhoneNumber = _twilioPhoneNumber;
+            _configuration = configuration;
+
         }
 
-        // criar um metodo que instancia  notificador do twilio
-        public void SmsNotifier(string accountId, string authToken, string twilioPhoneNumber)
+        private void InitializeTwilioClient()
         {
-            this.AccountsID = accountId;
-            this.AuthToken = authToken;
-            this.TwilioPhoneNumber = twilioPhoneNumber;
+            var accountSid = _configuration["TwilioAccountDetails:AccountSid"];
+            var authToken = _configuration["TwilioAccountDetails:AuthToken"];
+
+            TwilioClient.Init(accountSid, authToken);
         }
 
         // criar um método para fazer o envio do sms
         public void SendSMS(string toPhoneNumber, string message)
         {
-            TwilioClient.Init(AccountsID, AuthToken);
+            InitializeTwilioClient();
+
+            var twilioPhoneNumber = _configuration["TwilioAccountDetails:PhoneNumber"];
+
             var messageOption = new CreateMessageOptions(new Twilio.Types.PhoneNumber(toPhoneNumber))
             {
                 Body = message,
-                From = new Twilio.Types.PhoneNumber(TwilioPhoneNumber)
+                From = new Twilio.Types.PhoneNumber(twilioPhoneNumber)
             };
 
             // buscando o retorno que veio da requisição do twillio
