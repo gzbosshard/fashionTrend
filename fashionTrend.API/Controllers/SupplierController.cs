@@ -1,6 +1,7 @@
 ﻿using fashionTrend.Application.UseCases.SupplierUseCases.CreateSupplier;
 using fashionTrend.Application.UseCases.SupplierUseCases.DeleteSupplier;
 using fashionTrend.Application.UseCases.SupplierUseCases.GetAllSupplier;
+using fashionTrend.Application.UseCases.SupplierUseCases.GetSupplierById;
 using fashionTrend.Application.UseCases.SupplierUseCases.UpdateSupplier;
 using fashionTrend.Domain.Entities;
 using fashionTrend.Domain.Interfaces;
@@ -61,5 +62,19 @@ namespace fashionTrend.API.Controllers
             var response = await _mediator.Send(new GetAllSupplierRequest(), cancellationToken);
             return Ok(response);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetSupplierByIdResponse>> Get(Guid? id, CancellationToken cancellationToken)
+        {
+            if (id is null) { return BadRequest(); }
+
+            var request = new GetSupplierByIdRequest(id.Value);
+            var response = await _mediator.Send(request, cancellationToken);
+
+            if (response is null) { return NotFound(); }
+            return Ok(response);
+        }
+
     }
-}
+    }
+

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace fashionTrend.Application.UseCases.SupplierUseCases.GetAllSupplier
+namespace fashionTrend.Application.UseCases.SupplierUseCases.GetSupplierById
 {
-    public sealed record GetAllSupplierResponse
+    public sealed record GetSupplierByIdResponse
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }

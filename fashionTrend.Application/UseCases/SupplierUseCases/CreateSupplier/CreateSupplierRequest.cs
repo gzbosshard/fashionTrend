@@ -14,6 +14,7 @@ namespace fashionTrend.Application.UseCases.SupplierUseCases.CreateSupplier
         string Email,
         string Name,
         string Password,
+        string Telephone,
         List<SewingMachine> SewingMachines,
         List<Material> Materials
         ) : IRequest<CreateSupplierResponse>

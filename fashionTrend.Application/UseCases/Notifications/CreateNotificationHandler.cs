@@ -19,6 +19,7 @@ namespace fashionTrend.Application.UseCases.Notifications
 
         }
 
+        //configuração do twilio para utilizar usersecrets e não deixar a senha exposta.
         private void InitializeTwilioClient()
         {
             var accountSid = _configuration["TwilioAccountDetails:AccountSid"];
