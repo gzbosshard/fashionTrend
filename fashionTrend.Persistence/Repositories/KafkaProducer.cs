@@ -16,12 +16,12 @@ namespace fashionTrend.Persistence.Repositories
 
         public KafkaProducer()
         {
-            // configura~]ao do servidor local do cluster do kafka
+            
             var config = new ProducerConfig
             {
-                BootstrapServers = "localhost:9092", // Endereço do servidor do kafka
+                BootstrapServers = "localhost:9092", 
             };
-            // adicionando ao produtor o servidor do kafka
+            
             _producer = new ProducerBuilder<string, string>(config).Build();
         }
 
@@ -39,16 +39,16 @@ namespace fashionTrend.Persistence.Repositories
             };
 
 
-            // Serializar a mensagem
+            
             string serielizedMessage = JsonSerializer.Serialize(message);
 
-            // chamar o método que produz a mensagem do confluente kafka
+            
             var deliveryReport = await _producer.ProduceAsync(topic, new Message<string, string>
             {
                 Value = serielizedMessage
             });
 
-            // verificar se a mensagem foi entregue com sucesso
+            
             if (deliveryReport.Status == PersistenceStatus.NotPersisted)
             {
                 message.Status = " com erro";
@@ -74,7 +74,6 @@ namespace fashionTrend.Persistence.Repositories
                 Status = "em processamento"
 
             };
-            // Serializa a mensagem e envia para o Kafka
             string serializedMessage = JsonSerializer.Serialize(message);
 
 
@@ -87,7 +86,6 @@ namespace fashionTrend.Persistence.Repositories
                 {
                     var deliveryReport = await _producer.ProduceAsync(topic, new Message<string, string> { Value = serializedMessage }); // Se você precisar de confirmação de entrega, pode verificar deliveryReport.Status.
 
-                    // Se chegou até aqui, a mensagem foi enviada com sucesso.
                     message.Status = "com sucesso";
 
                 }
@@ -100,15 +98,13 @@ namespace fashionTrend.Persistence.Repositories
                         Console.WriteLine($"Tentando novamente em {retryIntervalMs / 1000} segundos...");
                         System.Threading.Thread.Sleep(retryIntervalMs);
                         message.Status = "retry";
-                        // Lidar com erros
 
                     }
                     else
                     {
-                        // Se todas as tentativas falharam, propague a exceção para o chamador.
-                        throw;
                         message.Status = "com erro";
-                        // Lidar com erros
+                        throw;
+                        
 
                     }
                 }

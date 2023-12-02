@@ -12,7 +12,8 @@ namespace fashionTrend.Application.UseCases.PaymentUseCases.CreatePayment
     {
         public CreatePaymentValidator()
         {
-            //  RuleFor(x => x.Email).NotEmpty().MaximumLength(50).EmailAddress();
+            RuleFor(x => x.Amount).NotEmpty();
+            RuleFor(x => x.PaymentMethod).NotEmpty();
 
         }
     }

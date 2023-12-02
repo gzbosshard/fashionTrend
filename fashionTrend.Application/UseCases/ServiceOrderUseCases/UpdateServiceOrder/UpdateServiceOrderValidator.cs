@@ -12,8 +12,7 @@ namespace fashionTrend.Application.UseCases.ServiceOrderUseCases.UpdateServiceOr
     {
         public UpdateServiceOrderValidator()
         {
-
-
+            RuleFor(x => x.Status).NotEmpty();
         }
     }
 }

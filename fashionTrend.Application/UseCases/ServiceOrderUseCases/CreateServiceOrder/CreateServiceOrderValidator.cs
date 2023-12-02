@@ -11,7 +11,7 @@ namespace fashionTrend.Application.UseCases.ServiceOrderUseCases.CreateServiceOr
     {
         public CreateServiceOrderValidator()
         {
-            //  RuleFor(x => x.Email).NotEmpty().MaximumLength(50).EmailAddress();
+            RuleFor(x => x.Status).NotEmpty();
 
         }
     }

@@ -12,7 +12,7 @@ namespace fashionTrend.Application.UseCases.ServiceContractUseCases.DeleteServic
     {
         public DeleteServiceContractValidator()
         {
-
+            // sem validação
         }
     }
 }

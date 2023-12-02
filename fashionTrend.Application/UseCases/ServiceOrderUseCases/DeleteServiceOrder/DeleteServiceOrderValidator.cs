@@ -12,7 +12,7 @@ namespace fashionTrend.Application.UseCases.ServiceOrderUseCases.DeleteServiceOr
     {
         public DeleteServiceOrderValidator()
         {
-
+            // sem validação
         }
     }
 }

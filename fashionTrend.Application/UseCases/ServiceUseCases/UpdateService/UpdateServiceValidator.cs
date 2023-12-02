@@ -12,8 +12,10 @@ namespace fashionTrend.Application.UseCases.ServiceUseCases.UpdateService
     {
         public UpdateServiceValidator()
         {
-            
-
+            RuleFor(x => x.Delivery).NotEmpty();
+            RuleFor(x => x.SewingMachines).NotEmpty();
+            RuleFor(x => x.Materials).NotEmpty();
+            RuleFor(x => x.Type).NotEmpty();
         }
     }
 }

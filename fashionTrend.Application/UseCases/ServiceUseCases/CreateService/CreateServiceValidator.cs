@@ -11,7 +11,10 @@ namespace fashionTrend.Application.UseCases.ServiceUseCases.CreateService
     {
         public CreateServiceValidator()
         {
-            //  RuleFor(x => x.Email).NotEmpty().MaximumLength(50).EmailAddress();
+            RuleFor(x => x.Delivery).NotEmpty();
+            RuleFor(x => x.SewingMachines).NotEmpty();
+            RuleFor(x => x.Materials).NotEmpty();
+            RuleFor(x => x.Type).NotEmpty();
 
         }
     }

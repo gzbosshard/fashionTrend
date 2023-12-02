@@ -9,6 +9,7 @@ namespace fashionTrend.Domain.Entities
 {
     public class ServiceOrder : BaseEntity
     {
+
         public Guid SupplierId { get; set; }
         public Guid ServiceId { get; set; }
         public RequestStatus Status { get; set; }

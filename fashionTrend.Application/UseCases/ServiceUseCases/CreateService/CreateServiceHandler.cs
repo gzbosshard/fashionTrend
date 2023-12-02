@@ -58,9 +58,6 @@ namespace fashionTrend.Application.UseCases.ServiceUseCases.CreateService
                 notificaton.SendSMS("+5519982220048", "Fique atento! A solicitação de serviço requer entrega ao fornecedor.");
             }
 
-           
-
-
                 return _mapper.Map<CreateServiceResponse>(service);
 
 

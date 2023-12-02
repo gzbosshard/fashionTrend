@@ -13,6 +13,7 @@ namespace fashionTrend.Application.UseCases.SupplierUseCases.CreateSupplier
         {
             RuleFor(x => x.Email).NotEmpty().MaximumLength(50).EmailAddress();
             RuleFor(x => x.Name).NotEmpty().MaximumLength(50).MinimumLength(3);
+            RuleFor(x => x.Password).NotEmpty().MaximumLength(15).MinimumLength(8);
 
         }
     }

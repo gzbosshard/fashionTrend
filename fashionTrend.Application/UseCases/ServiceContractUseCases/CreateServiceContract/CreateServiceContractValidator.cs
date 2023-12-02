@@ -11,7 +11,10 @@ namespace fashionTrend.Application.UseCases.ServiceContractUseCases.CreateServic
     {
         public CreateServiceContractValidator()
         {
-            //  RuleFor(x => x.Email).NotEmpty().MaximumLength(50).EmailAddress();
+            RuleFor(x => x.OrderId).NotEmpty();
+            RuleFor(x => x.ServiceId).NotEmpty();
+            RuleFor(x => x.ContractStatus).NotEmpty();
+
 
         }
     }

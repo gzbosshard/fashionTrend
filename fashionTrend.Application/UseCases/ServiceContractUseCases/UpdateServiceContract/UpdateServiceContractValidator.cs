@@ -12,8 +12,7 @@ namespace fashionTrend.Application.UseCases.ServiceContractUseCases.UpdateServic
     {
         public UpdateServiceContractValidator()
         {
-
-
+            RuleFor(x => x.ContractStatus).NotEmpty();
         }
     }
 }

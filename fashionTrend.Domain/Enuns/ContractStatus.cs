@@ -8,9 +8,9 @@ namespace fashionTrend.Domain.Enuns
 {
     public enum ContractStatus
     {
-        Pending,
-        Approved,
-        Rejected,
-        Completed
+        Pending = 1,
+        Approved = 2,
+        Rejected = 3,
+        Completed = 4
     }
 }
