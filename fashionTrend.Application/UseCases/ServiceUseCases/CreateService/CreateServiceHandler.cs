@@ -51,11 +51,15 @@ namespace fashionTrend.Application.UseCases.ServiceUseCases.CreateService
 
             
             //aqui percisa ser um for para passar por todos os fornecedores que atendem às condições necessárias
+
+
+
             notificaton.SendSMS("+5519982220048", "Uma nova solicação de serviço foi adicionada! Veja se te interessa!");
 
+           
 
 
-            return _mapper.Map<CreateServiceResponse>(service);
+                return _mapper.Map<CreateServiceResponse>(service);
 
 
         }
