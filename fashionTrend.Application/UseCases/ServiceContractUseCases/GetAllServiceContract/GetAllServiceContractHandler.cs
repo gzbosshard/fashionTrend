@@ -22,8 +22,11 @@ namespace fashionTrend.Application.UseCases.ServiceContractUseCases.GetAllServic
 
         public async Task<List<GetAllServiceContractResponse>> Handle(GetAllServiceContractRequest request, CancellationToken cancellationToken)
         {
+            try
+            {            
             var serviceContract = await _serviceContractRepository.GetAll(cancellationToken);
             return _mapper.Map<List<GetAllServiceContractResponse>>(serviceContract);
+            } catch (Exception) { throw; }
         }
     }
 }

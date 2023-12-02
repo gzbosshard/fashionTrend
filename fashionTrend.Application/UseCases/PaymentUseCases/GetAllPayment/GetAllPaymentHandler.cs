@@ -23,8 +23,12 @@ namespace fashionTrend.Application.UseCases.PaymentUseCases.GetAllPayment
 
         public async Task<List<GetAllPaymentResponse>> Handle(GetAllPaymentRequest request, CancellationToken cancellationToken)
         {
-            var payment = await _paymentRepository.GetAll(cancellationToken);
-            return _mapper.Map<List<GetAllPaymentResponse>>(payment);
+            try
+            {
+                var payment = await _paymentRepository.GetAll(cancellationToken);
+                return _mapper.Map<List<GetAllPaymentResponse>>(payment);
+            }
+            catch (Exception) { throw; }
         }
     }
 }

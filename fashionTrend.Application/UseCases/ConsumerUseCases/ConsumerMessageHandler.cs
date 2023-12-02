@@ -22,11 +22,16 @@ namespace fashionTrend.Application.UseCases.ConsumerUseCases
         }
 
         public async Task<string> Handle(ConsumerMessageRequest request, CancellationToken cancellationToken)
-        {            
-            _kafkaConsumer.Subscribe(request.topic, request.group);
+        {
+            try
+            {
+                _kafkaConsumer.Subscribe(request.topic, request.group);
 
-            await _kafkaConsumer.StartConsumingAsync(cancellationToken);
-            return _mapper.Map<string>("Ok");
+                await _kafkaConsumer.StartConsumingAsync(cancellationToken);
+                return _mapper.Map<string>("Ok");
+            }
+            catch (Exception) { throw; }
+
 
         }
     }

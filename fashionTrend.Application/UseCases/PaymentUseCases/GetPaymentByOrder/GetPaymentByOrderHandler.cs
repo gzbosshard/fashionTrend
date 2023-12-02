@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using fashionTrend.Application.UseCases.SupplierUseCases.GetSupplierById;
+using fashionTrend.Domain.Entities;
 using fashionTrend.Domain.Interfaces;
 using MediatR;
 using System;
@@ -23,8 +24,17 @@ namespace fashionTrend.Application.UseCases.PaymentUseCases.GetPaymentByOrder
 
         public async Task<GetPaymentByOrderResponse> Handle(GetPaymentByOrderRequest request, CancellationToken cancellationToken)
         {
-            var payment = await _paymentRepository.GetByOrder(request.OrderId, cancellationToken);
-            return _mapper.Map<GetPaymentByOrderResponse>(payment);
+            try
+            {
+                var payment = await _paymentRepository.GetByOrder(request.OrderId, cancellationToken);
+
+                if (payment is null)
+                {
+                    throw new ArgumentNullException("Ordem de Serviço não encontrada");
+                }
+                return _mapper.Map<GetPaymentByOrderResponse>(payment);
+            }
+            catch (Exception) { throw; }
         }
 
     }

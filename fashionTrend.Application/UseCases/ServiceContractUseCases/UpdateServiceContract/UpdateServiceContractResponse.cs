@@ -9,6 +9,7 @@ namespace fashionTrend.Application.UseCases.ServiceContractUseCases.UpdateServic
 {
     public sealed record UpdateServiceContractResponse
     {
+        public Guid Id { get; set; }
         public Guid Order { get; set; }
         public Guid SupplierId { get; set; }
         public DateTimeOffset StartDate { get; set; }

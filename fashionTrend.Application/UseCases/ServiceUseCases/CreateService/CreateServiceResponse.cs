@@ -10,6 +10,7 @@ namespace fashionTrend.Application.UseCases.ServiceUseCases.CreateService
 {
     public sealed record CreateServiceResponse
     {
+        public Guid Id { get; set; }
         public string? Description { get; set; }
         public bool Delivery { get; set; }
         public RequestType Type { get; set; }

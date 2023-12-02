@@ -29,22 +29,29 @@ namespace fashionTrend.Application.UseCases.ServiceUseCases.UpdateService
 
         public async Task<UpdateServiceResponse> Handle(UpdateServiceRequest request, CancellationToken cancellationToken)
         {
+            try
+            {
+                var service = await _serviceRepository.Get(request.Id, cancellationToken);
+
+                if (service is null)
+                {
+                    throw new ArgumentNullException("Não foi possível encontrar o serviço");
+                }
+
+                service.Description = request.Description;
+                service.Delivery = request.Delivery;
+                service.SewingMachines = request.SewingMachines;
+                service.Materials = request.Materials;
+                service.Type = request.Type;
+
+
+                _serviceRepository.Update(service);
+                await _unitOfWork.Commit(cancellationToken);
+
+                return _mapper.Map<UpdateServiceResponse>(service);
+            }
+            catch (Exception) { throw; }
             
-            var service = await _serviceRepository.Get(request.Id, cancellationToken);
-
-            if (service is null) return default;
-
-            service.Description = request.Description;
-            service.Delivery = request.Delivery;
-            service.SewingMachines = request.SewingMachines;
-            service.Materials = request.Materials;
-            service.Type = request.Type;
-
-
-            _serviceRepository.Update(service);
-            await _unitOfWork.Commit(cancellationToken);
-
-            return _mapper.Map<UpdateServiceResponse>(service);
 
 
         }

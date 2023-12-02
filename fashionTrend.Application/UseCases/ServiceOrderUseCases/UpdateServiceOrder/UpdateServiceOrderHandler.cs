@@ -15,13 +15,9 @@ namespace fashionTrend.Application.UseCases.ServiceOrderUseCases.UpdateServiceOr
 {
     public class UpdateServiceOrderHandler : IRequestHandler<UpdateServiceOrderRequest, UpdateServiceOrderResponse>
     {
-        // unit of work
+
         private readonly IUnitOfWork _unitOfWork;
-
-        //repository - camada de dados
         private readonly IServiceOrderRepository _serviceOrderRepository;
-
-        //mapper
         private readonly IMapper _mapper;
         public UpdateServiceOrderHandler(IUnitOfWork unitOfWork, IServiceOrderRepository serviceOrderRepository, IMapper mapper)
         {
@@ -32,10 +28,16 @@ namespace fashionTrend.Application.UseCases.ServiceOrderUseCases.UpdateServiceOr
 
         public async Task<UpdateServiceOrderResponse> Handle(UpdateServiceOrderRequest request, CancellationToken cancellationToken)
         {
+            try
+            {
 
+            
             var serviceOrder = await _serviceOrderRepository.Get(request.Id, cancellationToken);
 
-            if (serviceOrder is null) return default;
+                if (serviceOrder is null)
+                {
+                    throw new ArgumentNullException("Ordem de serviço não encontrada");
+                }
 
             serviceOrder.SupplierId = request.SupplierId;
             serviceOrder.ServiceId = request.ServiceId;
@@ -71,13 +73,8 @@ namespace fashionTrend.Application.UseCases.ServiceOrderUseCases.UpdateServiceOr
 
             }
 
-            if (request.Status == RequestStatus.Completed)
-            {
-                notificaton.SendSMS("+5519982220048", $"O serviço está completo e é hora de realizaar o pagamento");
-            }
-
             return _mapper.Map<UpdateServiceOrderResponse>(serviceOrder);
-
+            }catch(Exception) { throw; }
 
         }
     }

@@ -14,13 +14,10 @@ namespace fashionTrend.Application.UseCases.SupplierUseCases.CreateSupplier
 
     public class CreateSupplierHandler : IRequestHandler<CreateSupplierRequest, CreateSupplierResponse>
     {
-        // unit of work
         private readonly IUnitOfWork _unitOfWork;
 
-        //repository - camada de dados
         private readonly ISupplierRepository _supplierRepository;
 
-        //mapper
         private readonly IMapper _mapper;
         public CreateSupplierHandler(IUnitOfWork unitOfWork, ISupplierRepository supplierRepository, IMapper mapper)
         {
@@ -31,20 +28,18 @@ namespace fashionTrend.Application.UseCases.SupplierUseCases.CreateSupplier
 
         public async Task<CreateSupplierResponse> Handle(CreateSupplierRequest request, CancellationToken cancellationToken)
         {
-            // onde vamos mandar as infos para os banco de dados
+            try { 
             var supplier = _mapper.Map<Supplier>(request);
 
             _supplierRepository.Create(supplier);
 
-            
-
-            // aqui chama o controle transacional
             await _unitOfWork.Commit(cancellationToken);
-
 
             return _mapper.Map<CreateSupplierResponse>(supplier);
 
-            
+            } catch (Exception) { throw new Exception("Não foi possível criar um fornecedor"); }
+
+
 
         }
     }

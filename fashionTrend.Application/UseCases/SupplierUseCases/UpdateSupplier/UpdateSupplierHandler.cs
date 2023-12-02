@@ -31,22 +31,28 @@ namespace fashionTrend.Application.UseCases.SupplierUseCases.UpdateSupplier
 
         public async Task<UpdateSupplierResponse> Handle(UpdateSupplierRequest request, CancellationToken cancellationToken)
         {
-            // buscar supplier a ser alterado
-            var supplier = await _supplierRepository.Get(request.Id, cancellationToken);
+            try
+            {
+                var supplier = await _supplierRepository.Get(request.Id, cancellationToken);
 
-            if (supplier is null) return default;
+                if (supplier is null)
+                {
+                    throw new ArgumentNullException("Fornecedor não encontrado");
+                }
 
-            supplier.Email = request.Email;
-            supplier.SewingMachines = request.SewingMachines;
-            supplier.Materials = request.Materials;
-            supplier.Name = request.Name;
-            supplier.Password = request.Password;
+                supplier.Email = request.Email;
+                supplier.SewingMachines = request.SewingMachines;
+                supplier.Materials = request.Materials;
+                supplier.Name = request.Name;
+                supplier.Password = request.Password;
 
 
-            _supplierRepository.Update(supplier);
-            await _unitOfWork.Commit(cancellationToken);
+                _supplierRepository.Update(supplier);
+                await _unitOfWork.Commit(cancellationToken);
 
-            return _mapper.Map<UpdateSupplierResponse>(supplier);
+                return _mapper.Map<UpdateSupplierResponse>(supplier);
+            }
+            catch (Exception) { throw; }
 
 
         }

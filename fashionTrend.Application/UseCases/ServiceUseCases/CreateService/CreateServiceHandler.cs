@@ -14,13 +14,9 @@ namespace fashionTrend.Application.UseCases.ServiceUseCases.CreateService
 {
     public class CreateServiceHandler : IRequestHandler<CreateServiceRequest, CreateServiceResponse>
     {
-        // unit of work
+
         private readonly IUnitOfWork _unitOfWork;
-
-        //repository - camada de dados
         private readonly IServiceRepository _serviceRepository;
-
-        //mapper
         private readonly IMapper _mapper;
         public CreateServiceHandler(IUnitOfWork unitOfWork, IServiceRepository serviceRepository, IMapper mapper)
         {
@@ -31,16 +27,13 @@ namespace fashionTrend.Application.UseCases.ServiceUseCases.CreateService
 
         public async Task<CreateServiceResponse> Handle(CreateServiceRequest request, CancellationToken cancellationToken)
         {
-            // onde vamos mandar as infos para os banco de dados
+            try { 
             var service = _mapper.Map<Service>(request);
-
             _serviceRepository.Create(service);
-
-            // aqui chama o controle transacional
             await _unitOfWork.Commit(cancellationToken);
 
 
-            // notificações ao supplier
+            // notificações
 
             var builder = new ConfigurationBuilder()
             .AddUserSecrets<CreateNotificationHandler>(); 
@@ -54,12 +47,12 @@ namespace fashionTrend.Application.UseCases.ServiceUseCases.CreateService
 
             if (request.Delivery == true)
             {
-                //notificação à Fashin trend sobre a necessidade de entrega do produto ao forencedor
+                //notificação à FashionTrend sobre a necessidade de entrega do produto ao forencedor
                 notificaton.SendSMS("+5519982220048", "Fique atento! A solicitação de serviço requer entrega ao fornecedor.");
             }
 
                 return _mapper.Map<CreateServiceResponse>(service);
-
+            }catch (Exception) { throw; }
 
         }
     }

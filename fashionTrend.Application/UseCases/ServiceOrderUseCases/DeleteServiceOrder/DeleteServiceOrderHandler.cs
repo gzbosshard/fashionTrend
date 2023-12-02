@@ -13,13 +13,9 @@ namespace fashionTrend.Application.UseCases.ServiceOrderUseCases.DeleteServiceOr
 {
     public class DeleteServiceOrderHandler : IRequestHandler<DeleteServiceOrderRequest, DeleteServiceOrderResponse>
     {
-        // unit of work
+
         private readonly IUnitOfWork _unitOfWork;
-
-        //repository - camada de dados
         private readonly IServiceOrderRepository _serviceOrderRepository;
-
-        //mapper
         private readonly IMapper _mapper;
         public DeleteServiceOrderHandler(IUnitOfWork unitOfWork, IServiceOrderRepository serviceOrderRepository, IMapper mapper)
         {
@@ -30,14 +26,14 @@ namespace fashionTrend.Application.UseCases.ServiceOrderUseCases.DeleteServiceOr
 
         public async Task<DeleteServiceOrderResponse> Handle(DeleteServiceOrderRequest request, CancellationToken cancellationToken)
         {
-            // onde vamos mandar as infos para os banco de dados
+            try
+            {            
             var serviceOrder = _mapper.Map<ServiceOrder>(request);
-
             _serviceOrderRepository.Delete(serviceOrder);
 
-            // aqui chama o controle transacional
             await _unitOfWork.Commit(cancellationToken);
             return _mapper.Map<DeleteServiceOrderResponse>(serviceOrder);
+            } catch (Exception) { throw; }
 
 
         }

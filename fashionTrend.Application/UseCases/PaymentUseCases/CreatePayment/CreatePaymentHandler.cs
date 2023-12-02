@@ -16,13 +16,8 @@ namespace fashionTrend.Application.UseCases.PaymentUseCases.CreatePayment
 {
     public class CreatePaymentHandler : IRequestHandler<CreatePaymentRequest, CreatePaymentResponse>
     {
-        // unit of work
         private readonly IUnitOfWork _unitOfWork;
-
-        //repository - camada de dados
         private readonly IPaymentRepository _paymentRepository;
-
-        //mapper
         private readonly IMapper _mapper;
         public CreatePaymentHandler(IUnitOfWork unitOfWork, IPaymentRepository paymentRepository, IMapper mapper)
         {
@@ -33,29 +28,26 @@ namespace fashionTrend.Application.UseCases.PaymentUseCases.CreatePayment
 
         public async Task<CreatePaymentResponse> Handle(CreatePaymentRequest request, CancellationToken cancellationToken)
         {
-            // onde vamos mandar as infos para os banco de dados
-            var payment = _mapper.Map<Payment>(request);
-
-            _paymentRepository.Create(payment);
-
-            // aqui chama o controle transacional
-            await _unitOfWork.Commit(cancellationToken);
-            
-
-            // notificações de pagamento
-
-            var builder = new ConfigurationBuilder()
-            .AddUserSecrets<CreateNotificationHandler>();
-
-            var configuration = builder.Build();
-
-            var notificaton = new CreateNotificationHandler(configuration);
+            try
+            {
+                var payment = _mapper.Map<Payment>(request);
+                _paymentRepository.Create(payment);
+                await _unitOfWork.Commit(cancellationToken);
 
 
-            notificaton.SendSMS("+5519982220048", "O pagamento foi realizado");
+                // notificações de pagamento
 
-            return _mapper.Map<CreatePaymentResponse>(payment);
+                var builder = new ConfigurationBuilder()
+                .AddUserSecrets<CreateNotificationHandler>();
 
+                var configuration = builder.Build();
+                var notificaton = new CreateNotificationHandler(configuration);
+
+                notificaton.SendSMS("+5519982220048", "O pagamento foi realizado");
+
+                return _mapper.Map<CreatePaymentResponse>(payment);
+            }
+            catch (Exception) { throw; }
 
 
 

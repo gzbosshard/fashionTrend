@@ -31,25 +31,27 @@ namespace fashionTrend.Application.UseCases.Notifications
         // criar um método para fazer o envio do sms
         public void SendSMS(string toPhoneNumber, string message)
         {
-            InitializeTwilioClient();
-
-            var twilioPhoneNumber = _configuration["TwilioAccountDetails:PhoneNumber"];
-
-            var messageOption = new CreateMessageOptions(new Twilio.Types.PhoneNumber(toPhoneNumber))
+            try
             {
-                Body = message,
-                From = new Twilio.Types.PhoneNumber(twilioPhoneNumber)
-            };
+                InitializeTwilioClient();
 
-            // buscando o retorno que veio da requisição do twillio
-            var messageResponse = MessageResource.Create(messageOption);
+                var twilioPhoneNumber = _configuration["TwilioAccountDetails:PhoneNumber"];
 
-            // verificar se a notificação foi enviada
-            // se não enviar, criar uma log, para ser feita a retentativa
+                var messageOption = new CreateMessageOptions(new Twilio.Types.PhoneNumber(toPhoneNumber))
+                {
+                    Body = message,
+                    From = new Twilio.Types.PhoneNumber(twilioPhoneNumber)
+                };
 
-            // construir tratatmento de erros
+                // buscando o retorno que veio da requisição do twillio
+                var messageResponse = MessageResource.Create(messageOption);
 
-            Console.WriteLine("Sms enviado com sucesso");
+                Console.WriteLine("Sms enviado com sucesso");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Ocorreu um erro ao enviar a mensagem");
+            }
 
         }
 

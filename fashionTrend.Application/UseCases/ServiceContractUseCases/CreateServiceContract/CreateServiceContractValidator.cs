@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using fashionTrend.Domain.Entities;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,9 @@ namespace fashionTrend.Application.UseCases.ServiceContractUseCases.CreateServic
     {
         public CreateServiceContractValidator()
         {
-            RuleFor(x => x.OrderId).NotEmpty();
-            RuleFor(x => x.ServiceId).NotEmpty();
+            RuleFor(x => x.Order).NotEmpty();
+            RuleFor(x => x.SupplierId).NotEmpty();
             RuleFor(x => x.ContractStatus).NotEmpty();
-
 
         }
     }

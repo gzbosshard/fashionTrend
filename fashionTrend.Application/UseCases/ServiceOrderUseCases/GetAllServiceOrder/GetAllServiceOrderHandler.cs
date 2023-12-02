@@ -23,8 +23,12 @@ namespace fashionTrend.Application.UseCases.ServiceOrderUseCases.GetAllServiceOr
 
         public async Task<List<GetAllServiceOrderResponse>> Handle(GetAllServiceOrderRequest request, CancellationToken cancellationToken)
         {
-            var serviceOrder = await _serviceOrderRepository.GetAll(cancellationToken);
-            return _mapper.Map<List<GetAllServiceOrderResponse>>(serviceOrder);
+            try
+            {
+                var serviceOrder = await _serviceOrderRepository.GetAll(cancellationToken);
+                return _mapper.Map<List<GetAllServiceOrderResponse>>(serviceOrder);
+            }
+            catch (Exception) { throw; }
         }
     }
 }

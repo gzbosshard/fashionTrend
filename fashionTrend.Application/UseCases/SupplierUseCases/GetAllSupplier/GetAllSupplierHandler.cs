@@ -23,8 +23,13 @@ namespace fashionTrend.Application.UseCases.SupplierUseCases.GetAllSupplier
 
         public async Task<List<GetAllSupplierResponse>> Handle(GetAllSupplierRequest request, CancellationToken cancellationToken)
         {
-            var suppliers = await _supplierRepository.GetAll(cancellationToken);
-            return _mapper.Map<List<GetAllSupplierResponse>>(suppliers);
+            try
+            {
+                var suppliers = await _supplierRepository.GetAll(cancellationToken);
+                return _mapper.Map<List<GetAllSupplierResponse>>(suppliers);
+
+            }
+            catch (Exception) { throw; }
         }
     }
 }

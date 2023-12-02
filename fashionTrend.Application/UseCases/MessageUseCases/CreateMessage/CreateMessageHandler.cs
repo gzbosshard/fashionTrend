@@ -23,13 +23,22 @@ namespace fashionTrend.Application.UseCases.MessageUseCases.CreateMessage
         public async Task<CreateMessageResponse> Handle(CreateMessageRequest request,
             CancellationToken cancellationToken)
         {
-            var message = await _kafkaRepository.ProduceAsyncWithRetry(
-                request.topic,
-                request.sender,
-                request.receiver,
-                request.content);
+            try
+            {
+                var message = await _kafkaRepository.ProduceAsyncWithRetry(
+                                request.topic,
+                                request.sender,
+                                request.receiver,
+                                request.content);
 
-            return _mapper.Map<CreateMessageResponse>(message);
+                return _mapper.Map<CreateMessageResponse>(message);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Ocorreu um erro ao processar a mensagem.");
+                return _mapper.Map<CreateMessageResponse>("Ocorreu um erro ao processar a mensagem");
+            }
+
         }
     }
 }

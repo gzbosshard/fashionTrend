@@ -7,6 +7,7 @@ using fashionTrend.Domain.Entities;
 using fashionTrend.Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Twilio.Types;
 
 namespace fashionTrend.API.Controllers
 {
@@ -26,7 +27,9 @@ namespace fashionTrend.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateSupplierRequest request)
         {
-            var supplier = await _mediator.Send(request);
+            var formattedRequest = request with { Telephone = $"+55{request.Telephone}" };
+
+            var supplier = await _mediator.Send(formattedRequest);
             return Ok(supplier);
         }
 
@@ -69,6 +72,7 @@ namespace fashionTrend.API.Controllers
             if (id is null) { return BadRequest(); }
 
             var request = new GetSupplierByIdRequest(id.Value);
+
             var response = await _mediator.Send(request, cancellationToken);
 
             if (response is null) { return NotFound(); }

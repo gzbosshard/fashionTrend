@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
+using fashionTrend.Application.UseCases.Notifications;
+using fashionTrend.Domain.Entities;
+using fashionTrend.Domain.Enuns;
 using fashionTrend.Domain.Interfaces;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +15,8 @@ namespace fashionTrend.Application.UseCases.ServiceContractUseCases.UpdateServic
 {
     public class UpdateServiceContractHandler : IRequestHandler<UpdateServiceContractRequest, UpdateServiceContractResponse>
     {
-        // unit of work
         private readonly IUnitOfWork _unitOfWork;
-
-        //repository - camada de dados
         private readonly IServiceContractRepository _serviceContractRepository;
-
-        //mapper
         private readonly IMapper _mapper;
         public UpdateServiceContractHandler(IUnitOfWork unitOfWork, IServiceContractRepository serviceContractRepository, IMapper mapper)
         {
@@ -28,23 +27,51 @@ namespace fashionTrend.Application.UseCases.ServiceContractUseCases.UpdateServic
 
         public async Task<UpdateServiceContractResponse> Handle(UpdateServiceContractRequest request, CancellationToken cancellationToken)
         {
+            try
+            {
+                var serviceContract = await _serviceContractRepository.Get(request.Id, cancellationToken);
 
-            var serviceContract = await _serviceContractRepository.Get(request.Id, cancellationToken);
+                if (serviceContract is null)
+                {
+                    throw new ArgumentNullException("Contrato não encontrado");
+                }
 
-            if (serviceContract is null) return default;
-
-            serviceContract.Order = request.Order;
-            serviceContract.SupplierId = request.SupplierId;
-            serviceContract.StartDate = request.StartDate;
-            serviceContract.EndDate = request.EndDate;
-            serviceContract.ContractStatus = request.ContractStatus;
+                serviceContract.Order = request.Order;
+                serviceContract.SupplierId = request.SupplierId;
+                serviceContract.StartDate = request.StartDate;
+                serviceContract.EndDate = request.EndDate;
+                serviceContract.ContractStatus = request.ContractStatus;
 
 
-            _serviceContractRepository.Update(serviceContract);
-            await _unitOfWork.Commit(cancellationToken);
+                _serviceContractRepository.Update(serviceContract);
+                await _unitOfWork.Commit(cancellationToken);
 
-            return _mapper.Map<UpdateServiceContractResponse>(serviceContract);
+                // notificações de que a ordem de serviço foi completada
 
+                var builder = new ConfigurationBuilder()
+                .AddUserSecrets<CreateNotificationHandler>();
+
+                var configuration = builder.Build();
+
+                var notificaton = new CreateNotificationHandler(configuration);
+
+                switch (request.ContractStatus)
+                {
+                    case ContractStatus.Approved:
+                        notificaton.SendSMS("+5519982220048", $"O contrato aprovado"); break;
+                    case ContractStatus.Rejected:
+                        notificaton.SendSMS("+5519982220048", $"O contrato foi rejeitado"); break;
+                    case ContractStatus.Pending:
+                        notificaton.SendSMS("+5519982220048", $"O contrato está pendente"); break;
+                    case ContractStatus.Completed:
+                        notificaton.SendSMS("+5519982220048", $"O contrato está finalizado"); break;
+                    default:
+                        notificaton.SendSMS("+5519982220048", $"O Status do contrato foi alterado!"); break;
+
+                }
+
+                return _mapper.Map<UpdateServiceContractResponse>(serviceContract);
+            }catch (Exception) { throw; }
 
         }
     }

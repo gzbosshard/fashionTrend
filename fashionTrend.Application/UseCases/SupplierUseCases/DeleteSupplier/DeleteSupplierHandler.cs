@@ -12,13 +12,11 @@ namespace fashionTrend.Application.UseCases.SupplierUseCases.DeleteSupplier
 {
     public class DeleteSupplierHandler : IRequestHandler<DeleteSupplierRequest, DeleteSupplierResponse>
     {
-        // unit of work
+
         private readonly IUnitOfWork _unitOfWork;
 
-        //repository - camada de dados
         private readonly ISupplierRepository _supplierRepository;
 
-        //mapper
         private readonly IMapper _mapper;
         public DeleteSupplierHandler(IUnitOfWork unitOfWork, ISupplierRepository supplierRepository, IMapper mapper)
         {
@@ -29,14 +27,17 @@ namespace fashionTrend.Application.UseCases.SupplierUseCases.DeleteSupplier
 
         public async Task<DeleteSupplierResponse> Handle(DeleteSupplierRequest request, CancellationToken cancellationToken)
         {
-            // onde vamos mandar as infos para os banco de dados
-            var supplier = _mapper.Map<Supplier>(request);
+            try
+            {
+                var supplier = _mapper.Map<Supplier>(request);
 
-            _supplierRepository.Delete(supplier);
+                _supplierRepository.Delete(supplier);
 
-            // aqui chama o controle transacional
-            await _unitOfWork.Commit(cancellationToken);
-            return _mapper.Map<DeleteSupplierResponse>(supplier);
+                await _unitOfWork.Commit(cancellationToken);
+                return _mapper.Map<DeleteSupplierResponse>(supplier);
+            }
+            catch (Exception) { throw; }
+            
 
 
         }
