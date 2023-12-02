@@ -50,8 +50,6 @@ public class AppDbContext : DbContext
                      .Select(s => (SewingMachine)Enum.Parse(typeof(SewingMachine), s))
                      .ToList());
 
-       
-
         base.OnModelCreating(modelBuilder);
     }
 
@@ -59,6 +57,7 @@ public class AppDbContext : DbContext
     public DbSet<Service> Services { get; set; }
     public DbSet<ServiceContract> ServiceContracts { get; set; }
     public DbSet<ServiceOrder> ServiceOrders { get; set; }
+    public DbSet<Payment> PaymentContracts { get; set; }
    
 
 }

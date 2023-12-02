@@ -49,12 +49,14 @@ namespace fashionTrend.Application.UseCases.ServiceUseCases.CreateService
 
             var notificaton = new CreateNotificationHandler(configuration);
 
-            
-            //aqui percisa ser um for para passar por todos os fornecedores que atendem às condições necessárias
-
-
 
             notificaton.SendSMS("+5519982220048", "Uma nova solicação de serviço foi adicionada! Veja se te interessa!");
+
+            if (request.Delivery == true)
+            {
+                //notificação à Fashin trend sobre a necessidade de entrega do produto ao forencedor
+                notificaton.SendSMS("+5519982220048", "Fique atento! A solicitação de serviço requer entrega ao fornecedor.");
+            }
 
            
 
